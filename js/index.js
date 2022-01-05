@@ -24,7 +24,7 @@ const init = () => {
         const id = data.items[0].id
         const avatarUrl = data.items[0].avatar_url
         
-        //create p element to add your user data
+        //create p element to add user data
         const pUserName = document.createElement("p")
         const pId = document.createElement("p")
         const pAvatarUrl = document.createElement("p")
@@ -39,6 +39,29 @@ const init = () => {
        li.appendChild(pAvatarUrl)
         userList.appendChild(li)
        
+        pUserName.addEventListener('click', userRepos)
+    }
+
+    //send request and return data about all repo for that user
+    function userRepos(event){
+        console.log(event.target.innerText)
+        fetch(`https://api.github.com/users/${event.target.innerText}/repos`)
+        
+        .then(res => res.json())
+        .then(user => {
+            user.forEach(repoList => {
+                // console.log(repoList)
+                myRepoList(repoList)
+            })
+        })
+    }
+    
+    function myRepoList(repoList) {
+        const newLi=document.createElement('li')
+       console.log(repoList)
+        
+        // newLi.appendChild(repoList)
+      
     }
 
 document.addEventListener('DOMContentLoaded', init);
